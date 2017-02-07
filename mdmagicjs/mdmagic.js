@@ -23,9 +23,11 @@ $(document).ready(function() {
 	// add index.md when needed
 	if (file === '') {
 		file = 'index.md';
-	} else if (file.indexOf(".md") == -1) {
+	} else if (file.indexOf('.md') == -1) {
 		file = file + '/index.md';
 	}
+	// display file in path
+	$('#message').text('loading ' + file + '...');
 	// crumble path
 	var crumbles = file.split('/');
 	var crumblePath = [];
@@ -40,8 +42,6 @@ $(document).ready(function() {
 		crumbles = ['[Home](?)'];
 	}
 	crumblesMd= '\n\n' + crumbles.join(' &gt; ') + '\n\n';
-	// add xmp node to the body, hide for now, no setting of the theme, I disabled that in my strapdown version and just put them in the html...
-	$('body').append('<xmp style="display:none;">');
 	// get the content of the md file
 	$.ajax({
 		url: mdcontent + '/' + file,
@@ -68,13 +68,15 @@ $(document).ready(function() {
 			.replace(/  -br/gi,'  br');
 		// add crumbleMd (if any) at beginning and end of md
 		md = crumblesMd + '------------\n\n' + md + '\n\n------------' + crumblesMd;
+		// add xmp node to the body, hide for now, no setting of the theme, I disabled that in my strapdown version and just put them in the html...
+		$('body').html('<xmp style="display:none;">');
 		// put the altered md into the xmp node
 		$('xmp').text(md);
 		// load strapdown.remy.js... I had to alter the script to get things to work properly...
 		$.getScript(strapdownjs);
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		// show error
-		var message = $(jqXHR.responseText).appendTo('xmp');
-		$.getScript(strapdownjs);
+		var message = $('#splash').html(jqXHR.responseText);
+	//	$.getScript(strapdownjs);
 	});
 });

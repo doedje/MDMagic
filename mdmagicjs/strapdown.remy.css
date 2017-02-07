@@ -19,6 +19,15 @@ xmp, textarea {
 h1,h2,h3,h4 {
   margin: 15px 0;
 }
+div#splash {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  padding-top: 30%;
+}
 
 #content {
   padding-top: 36px;
@@ -100,4 +109,3 @@ li.L3,
 li.L5,
 li.L7,
 li.L9 { background: #eee }
-
