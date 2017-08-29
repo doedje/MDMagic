@@ -4,7 +4,30 @@ Mdmagic is a tool-bundle to serve MarkDown files to the browser. You could use i
 
 This project started as a sort of wrapper for [strapdownjs](http://strapdownjs.com/).
 
-I was not very font of the fact that I needed to embed my MarkDown inside html, it is the kind of mixing that we stopped doing way back in the 90's... I wanted .html files to contain html and .md files to contain markdown.
+I was not very font of the fact that I needed to embed my MarkDown inside html, it is the kind of mixing that we stopped doing way back in the 90's... I wanted .html files to contain html and .md files to contain markdown. (the downside is that this solution misses the search-engine friendliness the original strapdownjs does claim to have...)
+
+License GNU/GPLv3
+-----------------
+Copyright (C) 2016 - Remy Blom, the Netherlands
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+---------------------------------------------------------
+
+Please note that this source code was released under the GPL license. So any change on the code shall be made publicly available and distributed under the GPL license
+
+---------------------------------------------------------
 
 Installation
 ------------
@@ -21,7 +44,7 @@ In theory you can put any .md file in the mdcontent folder and it will be able t
 
 But as an advocate of seperating content from logic I would recommend to set up a seperate git repository for your content.
 
-Since I use [NGINX](https://www.nginx.org) to serve my sites I use the following configuration:
+Since I use [NGINX](https://www.nginx.org) to serve my documentation I use the following configuration:
 
 ```
 # docs with mdmagic
@@ -31,6 +54,15 @@ Since I use [NGINX](https://www.nginx.org) to serve my sites I use the following
 	location /doc/mdcontent {
 		alias /var/www/doc;
 	}
+```
+
+I also have content repository that uses a `post-receive` hook to push-to-deploy:
+
+```
+#!/bin/bash
+source ~/.profile
+
+GIT_WORK_TREE=/var/www/doc git checkout -f
 ```
 
 mdmagicjs
